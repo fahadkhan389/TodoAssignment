@@ -1,26 +1,44 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using NUnit.Framework;
+//using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using TodoAssignment.Common;
+using OpenQA.Selenium.Support.UI;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TodoAssignment
-{   [Parallelizable]
-    [TestFixture]
+
+{
+    [TestClass]
 	public class FirefoxTesting:Hook
 	{
+        private TestContext testContextInstance;
         public FirefoxTesting():base(BrowserType.FireFox)
         {
 
         }
-        [Test]
+        public TestContext TestContext
+        {
+            get
+            {
+                return testContextInstance;
+            }
+            set
+            {
+                testContextInstance = value;
+            }
+        }
+        
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.XML", "|DataDirectory|\\Todo.xml", "Row", DataAccessMethod.Sequential), DeploymentItem("TodoAssignment\\Data\\Todo.xml"), TestMethod]
         public void FirefoxAddTodotest()
         {
+            var convertVal = TestContext.DataRow["note"].ToString();
             driver.Navigate().GoToUrl("http://todomvc.com/examples/angularjs/#/");
             PropertiesCollection.driver.Manage().Window.Maximize();
             ManageTodoOp TodoObj1 = new ManageTodoOp();
@@ -30,7 +48,7 @@ namespace TodoAssignment
 
 
         }
-        [Test]
+        [TestMethod]
         public void FirefoxEditTodotest()
         {
             driver.Navigate().GoToUrl("http://todomvc.com/examples/angularjs/#/");
@@ -44,15 +62,14 @@ namespace TodoAssignment
 
         }
 
-        [Parallelizable]
-        [TestFixture]
+        [TestClass]
         public class GoogleChromeTesting : Hook
         {
             public GoogleChromeTesting() : base(BrowserType.Chrome)
             {
             }
 
-            [Test]
+            [TestMethod]
             public void ChromeAddTodotest()
             {
                 driver.Navigate().GoToUrl("http://todomvc.com/examples/angularjs/#/");
@@ -62,7 +79,7 @@ namespace TodoAssignment
                 Thread.Sleep(2000);
 
             }
-            [Test]
+            [TestMethod]
             public void ChromeEditTodotest()
             {
                 driver.Navigate().GoToUrl("http://todomvc.com/examples/angularjs/#/");

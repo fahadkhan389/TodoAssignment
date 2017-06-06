@@ -48,13 +48,22 @@ namespace TodoAssignment
             SeleniumWrapper.EnterFillTextBox(newtodo,"FirstTodo");
             Thread.Sleep(3000);
             SeleniumWrapper.DoubleClickElement(LabelXpath);
+            //string text = SeleniumWrapper.GetText(labelxpath2);
+            //Thread.Sleep(3000);
+            ////Assert.IsTrue(string.Equals(text, "FirstTodo", StringComparison.InvariantCultureIgnoreCase), "Not Equal");
+            ////Thread.Sleep(3000);
+
+
+        }
+        public void AddTodoAssert()
+        {
             string text = SeleniumWrapper.GetText(labelxpath2);
             Thread.Sleep(3000);
             Assert.IsTrue(string.Equals(text, "FirstTodo", StringComparison.InvariantCultureIgnoreCase), "Not Equal");
             Thread.Sleep(3000);
 
-
         }
+
         public void EditTodo()
         {
            // SeleniumWrapper.DoubleClickElement(LabelXpath, IdentityType.Xpath);
