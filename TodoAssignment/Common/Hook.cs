@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -16,7 +17,7 @@ namespace TodoAssignment.Common
         IE
     }
 
-    [TestFixture]
+    [TestClass]
    public class Hook:PropertiesCollection
        
       {
@@ -42,12 +43,12 @@ namespace TodoAssignment.Common
 
             }
         }
-            [SetUp]
+            [TestInitialize]
         public void InitializeTest()
         {
             chooseDriverInstance(_browsertype);
         }
-        [TearDown]
+        [TestCleanup]
         public void CloseTest()
         {
             PropertiesCollection.driver.Close();
